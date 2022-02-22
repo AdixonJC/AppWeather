@@ -11,9 +11,9 @@ const BackGround = ({icon}) => {
     return (
         <div>
             { icon ?
-            <video autoPlay={true} muted loop className="videos">
-                <source src={backgroundChange} type="video/mp4"/>
-            </video> : null
+                <video autoPlay={true} muted loop className="videos">
+                    <source src={backgroundChange} type="video/mp4"/>
+                </video> : null
             }
         </div>
     );

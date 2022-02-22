@@ -28,8 +28,6 @@ const [changeTemp , setChangeTemp] = useState(true)
           axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=721f8d059bbf7f33c8fd9e94975bd6a7`)
          .then(response => {
             setWeather(response.data)
-            console.log(response.data?.weather?.[0].icon)
-            console.log(response.data)
             handleIcoChange(response.data.weather?.[0].icon , setIcon)
          }) 
       }
@@ -51,33 +49,37 @@ const tempChange = () => {
 
   return ( 
      <> 
-     {/* <img src={`http://openweathermap.org/img/wn/${weather?.weather?.[0].icon}@2x.png`} alt="" /> */}
-               {
+            {
                
-               isLoading ? <div className={"loader"}>Loading...</div>
-                  : <>
-                        <div className="weather-container">
-                           <BackGround
-                           icon={weather?.weather?.[0].icon}/>
-                           <div className="card-container">
-                              <h1>App Weather</h1>
-                        <div className="blocks">
-                              <h3>{weather?.sys.country} , {weather?.name}</h3>
+            isLoading ? <div className={"loader"}>Loading...</div>
+               : <>
+                  <div className="weather-container">
+                     <BackGround
+                      icon={weather?.weather?.[0].icon}
+                     />
+                     <div className="card-container">
 
-                              <i className={`${icon} icons`}></i>
+                        <h1>App Weather</h1>
 
-                              <div><strong>{weather?.weather[0].description}</strong></div>
-
+                     <div className="blocks">
+                        <h3>
+                           {weather?.sys.country} , {weather?.name}
+                       </h3>
+                           <i className={`${icon} icons`}></i>
+                        <div>
+                           <strong>{weather?.weather[0].description}</strong>
+                        </div>
                               <h3>{changeTemp ? 
                                  (weather?.main?.temp - 273).toFixed(1) + " °C"
-                                  : 
-                                  celsiusToFahrenheit(weather?.main?.temp - 273).toFixed(1) + " °F"}
+                                 : 
+                                 celsiusToFahrenheit(weather?.main?.temp - 273).toFixed(1) + " °F"}
                               </h3>
-                        </div>
+                     </div>
                      
                         <WeatherDetails
                          weather={weather}
-                         changeTemp={changeTemp}/>
+                         changeTemp={changeTemp}
+                         />
                            
                        <div>
                            <button onClick={tempChange}>{changeTemp ? "Degrees Fahrenheit" : "Degrees Centigrade"}</button>
